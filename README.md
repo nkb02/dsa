@@ -1,4 +1,3 @@
-# dsa
 # Data Structures and Algorithms in C++
 
 This repository contains implementations of various data structures and algorithms in C++. It serves as a reference and learning resource for DSA concepts and their implementation in C++.
