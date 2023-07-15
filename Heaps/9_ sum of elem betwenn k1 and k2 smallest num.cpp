@@ -189,31 +189,24 @@ int maxh(int a[], int n, int k){
     }
     return maxHeap.top();
 }
-
-// min heap
-int minh(int a[], int n ,int k){
-    priority_queue<int,vector<int>, greater<int>> minHeap;
-    for (int i = 0; i < n; ++i)
-    {
-        minHeap.push(a[i]);
-        if(minHeap.size() >k)
-            minHeap.pop();
-    }
-    return minHeap.top();
-}
 void solveNkb(){
-    int n,k;
-    cin>>n>>k;
+    int k1, k2, n;
+    cin >> n >> k1 >> k2;
+    // let(k1 < k2)
     int a[N];
-
     fl(i,n)
         cin>>a[i];
 
+    int n1 = maxh(a, n, k1);
+    int n2 = maxh(a, n, k2); 
 
-    cout<<minh(a, n, k); 
+    int sum =0 ;
+    fl(i,n ){
+        if(a[i]> n1 && a[i] < n2)
+            sum += a[i];
+    }
 
-
-
+    cout<<sum;
     return;
 }
     

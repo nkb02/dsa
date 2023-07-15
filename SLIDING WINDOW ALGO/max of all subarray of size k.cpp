@@ -104,35 +104,41 @@ void print(vector<ll> arr, ll n)
 //Practice->Success
  
  
+ 
 void solveNkb(){
-    ll n,k;
+    int n,k;
     cin>>n>>k;
-    // k is req sum
-    ll a[n];
+
+    int a[n];
     fl(i,n)cin>>a[i];
 
-    ll sum = 0;
-    ll  maxi = 0 ;
+    int start = 0, end  = 0;
+    deque<int> q;
+    vector<int>ans;
 
-    ll start = 0, end  = 0;
     while(end< n)
     {
-        sum += a[end];
-        if(sum < k)
-            end++;
-        else if(sum >= k)
-        {
-            if(sum == k)
-                maxi = max(maxi , end-start+1);
-            while(sum> k){
-                sum = sum - a[start] ;
-                start++;
-            }
+        while(q.size() > 0  && q.back() < a[end])
+            q.pop_back();
 
+            q.push_back(a[end]);
+
+        if(end -start +1 < k)
             end++;
+        else if(end-start+1 == k)
+        {
+            // calc ans
+             ans.push_back(q.front());
+             // slide window
+             if(q.front() == a[start])
+                q.pop_front();
+
+            start++;
+            end++;        
         }
     }
-    cout<<maxi;
+
+    for(auto it: ans) cout<< it<<" ";
     return;
 }
     

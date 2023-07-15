@@ -160,7 +160,7 @@ int main()
     Code By Byahut
  
     ll t=1;
-    cin >> t;
+    cin >> t; 
     while (t--)
     {
         solveNkb();

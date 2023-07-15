@@ -32,7 +32,19 @@ void printarr(ll arr[], ll n)
     fl(i, n) cout << arr[i] << " ";
     cout << "\n";
 }
- 
+string decToBinary(int n)
+{
+    // Size of an integer is assumed to be 32 bits
+    string ans ="";
+    for (int i = 31; i >= 0; i--) {
+        int k = n >> i;
+        if (k & 1)
+            ans+="1";
+        else
+          ans+="0";
+    }
+    return ans;
+}
 ll binaryToDecimal(string n)
 {
     string num = n;
@@ -69,8 +81,8 @@ bool isPowerOfTwo(int n)
 // Modular calculation 
  // const int M=1e9+7;
         const int M=998244353;
- 
- 
+
+
         long long mod(long long x){
             return ((x%M + M)%M);
         }
@@ -98,8 +110,8 @@ bool isPowerOfTwo(int n)
 //Code by Nitish Byahut
 //Language C++
 //Practice->Success
- 
-// const int  N = 501;
+
+const int  N = 501;
 // ll n,a[N],pref[N],suff[N];
 const int inf = 1e9 + 10;
 char get(int i){
@@ -122,106 +134,89 @@ ll fact(int n)
         res = mul(res,i);
     return res;
 }
-void addEdge(vector <int> adj[], int u, int v) {
-    adj[u].push_back(v);
-    // adj[v].push_back(u);
-} 
-bool dfs(int node, int parent, vector<int> adj[], int vis[]){
-    vis[node] = 1;
-    for(auto it :adj[node] ){
-        if(!vis[it]){
-            if(dfs(it, node, adj, vis) == true)
-            {
-                return true;
-            }
-        }
-        else if(parent != it)
-            {
-                return true;
-                // has cycle
-            }
-        }
-    
-    return false;
-} 
- bool isCycle(int V, vector<int> adj[]) {
-       int vis[V] = {0}; 
-       // for graph with connected components 
-       for(int i = 0;i<V;i++) {
-           if(!vis[i]) {
-               if(dfs(i, -1, adj, vis) == true) return true; 
-           }
-       }
-       return false; 
-    }
 
-// int n,x,t[100000],last,ans,j;
-ll factor(int x){
-    for(int i = 2; i*i <= x; i++)
+ 
+ 
+ll factor( ll n)
+{
+    for (int i = 2; i*i <= n; ++i)
     {
-        if(x % i == 0)
+        if(n % i == 0)
             return i;
     }
 }
+ll x;
 
-// square root of int in int
-ll bs_sqrt(ll x) {
-  ll left = 0, right = 2000000123;
-  while (right > left) {
-      ll mid = (left + right) / 2;
-      
-      if (mid * mid > x) right = mid;
-      else left = mid + 1;
+void bs(ll l, ll h, ll a[], ll n)
+{
+    ll i, f=0;
+    if(l<=h){
+        ll m=(l+h)/2;
+        
+        for(i=0; i<n-1; i++)
+        {
+            if((abs(a[i]-m)>abs(a[i+1]-m))){
+                if(a[i]>a[i+1]){
+                    f=1;
+                }else{
+                    f=2;
+                }
+                break;
+            }
+        }
+        
+        if(f==1)
+        bs(m+1, h, a, n);
+        else if(f==2)
+        bs(l, m-1, a, n);
+        else
+        x=m
+;    }
+}
+int d = 10;
+void subset(int a[], int n, vector<int> &ds, vector<vector<int>> &ans, int ind ){
+  ans.push_back(ds);
+  for (int i = ind; i < n; ++i)
+  {
+     if(ind != i && a[i] ==a[i-1] ) continue;
+
+     //pick
+     ds.push_back(a[i]);
+     subset(a, n, ds, ans, ind+1);
+     ds.pop_back();
   }
-  return left - 1;
 }
+void solveNkb()
+{
+   int n;
+   cin >> n;
+   int a[n] ;
+   fl(i,n) cin >> a[i];
+    sort(a, a+n);
 
-const int N = 1e5+10;
-
-// max heap
-int maxh(int a[], int n, int k){
-    priority_queue<int> maxHeap;
-    for (int i = 0; i < n; ++i)
-    {
-        maxHeap.push(a[i]);
-        if(maxHeap.size() >k)
-            maxHeap.pop();
+    vector<int>ds;
+    vector<vector<int>>ans;
+    
+    subset(a,n,ds,ans,0);
+    cout<<"{}"<<endl;
+    fl(i, ans.size()){
+        if(i == 0) continue;
+        for(auto x: ans[i]){
+            cout<<x<<" ";
+        }
+        cout<<endl;
     }
-    return maxHeap.top();
-}
 
-// min heap
-int minh(int a[], int n ,int k){
-    priority_queue<int,vector<int>, greater<int>> minHeap;
-    for (int i = 0; i < n; ++i)
-    {
-        minHeap.push(a[i]);
-        if(minHeap.size() >k)
-            minHeap.pop();
-    }
-    return minHeap.top();
-}
-void solveNkb(){
-    int n,k;
-    cin>>n>>k;
-    int a[N];
-
-    fl(i,n)
-        cin>>a[i];
-
-
-    cout<<minh(a, n, k); 
-
-
-
-    return;
+        return;
+    
 }
     
 int main()
 {
      Code By Nkb
         ll t=1;
-    cin >> t;
+    // cin >> t;
+
     while (t--)
     {
         solveNkb();

@@ -177,11 +177,9 @@ ll bs_sqrt(ll x) {
 }
 
 const int N = 1e5+10;
-ll n,k;
-ll a[N];
-ll presum[N]; 
+
 // max heap
-ll maxh(){
+int maxh(int a[], int n, int k){
     priority_queue<int> maxHeap;
     for (int i = 0; i < n; ++i)
     {
@@ -192,7 +190,7 @@ ll maxh(){
     return maxHeap.top();
 }
 // min heap
-void minh(){
+void minh(int a[], int n ,int k){
     priority_queue<int,vector<int>, greater<int>> minHeap;
     for (int i = 0; i < n; ++i)
     {
@@ -206,11 +204,14 @@ void minh(){
     }
 }
 void solveNkb(){
+    int n,k;
+    int a[N];
+    int presum[N]; 
     cin>>n>>k;
     fl(i,n)
         cin>>a[i];
 
-    cout<<maxh(); 
+    cout<<maxh(a, n, k); 
 
 
 

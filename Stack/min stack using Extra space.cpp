@@ -37,38 +37,24 @@ void print(vector<ll> arr, ll n)
     fl(i, n) cout << arr[i] << " ";
     cout << "\n";
 }
+
   
 void solveNkb()
 { 
-    int n;
-    cin>>n;
-    int a[n+5];
-    fl(i,n)
-        cin>>a[i];
+   ll n, w;
+   cin>>n;
+   stack <int> s;
+   stack <int> helper;
 
-    int maxL[n], maxR[n];
-    maxL[0] = a[0];
-    rep(i,1,n)
-    {
-        if(a[i]> maxL[i-1])
-            maxL[i] = a[i];
-        else
-            maxL[i] = maxL[i-1];
-    }
-    maxR[n-1] = a[n-1];
-    for (int i = n-2; i >= 0; i--)
-    {
-        if(a[i]> maxR[i+1])
-            maxR[i] = a[i];
-        else
-            maxR[i] = maxR[i+1];
-    }
-    ll sum = 0;
-    fl(i,n)
-    {
-        sum += (min(maxR[i], maxL[i]) - a[i]);
-    }
-    cout<<sum;
+   fl(i,n)
+   {
+        int x;
+        cin >> x;
+        s.push(x);
+   } 
+
+   cout<< getmin();
+
    return;
     
 }

@@ -65,7 +65,7 @@ signed main()
  
     ll t = 1;
    
-    cin >> t;
+    // cin >> t;
     srand(time(NULL));
     // to avoid generation of same no by rand()
     // dont want C++ to seed the value
