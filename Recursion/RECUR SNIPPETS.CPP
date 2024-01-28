@@ -1,5 +1,64 @@
- print all the subs 
+#height of a binary tree
 
+int height(int *node){
+    if(node == NULL) return 0;
+
+    int lt = height(node->left);
+    int rt = height(node->right);
+
+    return 1 + max(lt, rt);
+}
+
+# sort an array using recursion
+
+void insert(vector<int>&v, int temp){
+    if(v.size()== 0 || v.back() <= temp){
+        v.push_back(temp);
+        return;
+    }
+
+    int val = v.back();
+    v.pop_back();
+    insert(v, temp);
+    v.push_back(val);
+    return;
+}
+void sort(vector<int> &v){
+    if(v.size() == 0){
+        return;
+    }
+
+    int temp = v.back();
+    v.pop_back();
+
+    insert(v, temp);
+    return;
+}
+
+# Delete middle element of stack
+stack<int> midDel(stack<int>&s, int size){
+    if(st.size() == 0) 
+        return s;
+    int k = (size+1)/2;
+    solve(s, k);
+    return s;
+}
+
+void solve(stack<int> &st, int k){
+    if(k == 1) {
+        st.pop();
+        return;
+    }
+    int temp = st.top();
+    st.pop();
+    solve(st, k-1);
+    st.push(temp);
+    return;
+}
+
+
+# print all the subs 
+=> given arr print all subset
 
 void printSubs(vector<int> &arr, int n, int index, vector<int>&ds){
     if(index == n){
@@ -132,7 +191,6 @@ int fun( int arr[], int ind, int n, int sum, int s){
 
     return take + notTake;
     
-ar[
 }
 
 ==> 
@@ -215,7 +273,7 @@ void subsetSum(vector<int> &arr, int n, int index, int sum){
     return;
 }
 
-7.  subset sum II
+7.  subset sum II #striver
 
 void subset(int a[], int n, vector<int> &ds, vector<vector<int>> &ans, int ind ){
   ans.push_back(ds);
@@ -230,7 +288,7 @@ void subset(int a[], int n, vector<int> &ds, vector<vector<int>> &ans, int ind )
   }
 }
 
-8. permuations print alll  I
+8. permuations print all I
     
 void printPermuations(vector<int> &nums, vector<vector<int>> &ans, vector<int> &ds, int freq[]){
         if(ds.size() == nums.size() )
@@ -250,7 +308,7 @@ void printPermuations(vector<int> &nums, vector<vector<int>> &ans, vector<int> &
         }       
     }
 
-9. permuations print alll  II (no extra space)
+9. permuations print all  II (no extra space)
 
     
 
@@ -351,6 +409,22 @@ void reverseStack(stack<int> &stack) {
     return;
 }
 
+# Tower of HANOI (gfg)
+
+long long count = 0;
+long long toh(int N, int source, int dest, int helper) {
+    count++;
+    if(N == 1){
+        cout<<"move disk "<<N<<" from rod "<<source<<" to rod "<<dest<<'\n';
+        return count;
+    }
+    toh(N-1, source, helper, dest);
+    cout<<"move disk "<<N<<" from rod "<<source<<" to rod "<<dest<<'\n';
+    toh(N-1, helper, dest, source);
+    return count;
+    
+}
+
 
 // HARD 
 
@@ -365,6 +439,7 @@ void reverseStack(stack<int> &stack) {
 
   void partitionHelper(int index, string s, vector < string > & path,
     vector < vector < string > > & res) {
+    // base case
     if (index == s.size()) {
       res.push_back(path);
       return;
@@ -389,7 +464,7 @@ void reverseStack(stack<int> &stack) {
 
   2. N QUEENS 
 
-    ** USE HASHINGN FOR CHECKING VALID OR NOT THAT O(N) WHILE LOOPS
+    ** USE HASHING FOR CHECKING VALID OR NOT THAT O(N) WHILE LOOPS
 
    void solve(int col, vector < string > & board, vector < vector < string >> & ans, vector < int > & leftrow, vector < int > & upperDiagonal, vector < int > & lowerDiagonal, int n) {
       if (col == n) {
@@ -399,20 +474,26 @@ void reverseStack(stack<int> &stack) {
       for (int row = 0; row < n; row++) {
         if (leftrow[row] == 0 && lowerDiagonal[row + col] == 0 && upperDiagonal[n - 1 + col - row] == 0) {
           board[row][col] = 'Q';
+
           leftrow[row] = 1;
           lowerDiagonal[row + col] = 1;
           upperDiagonal[n - 1 + col - row] = 1;
+          
           solve(col + 1, board, ans, leftrow, upperDiagonal, lowerDiagonal, n);
+          
+          // back tracking
           board[row][col] = '.';
           leftrow[row] = 0;
           lowerDiagonal[row + col] = 0;
           upperDiagonal[n - 1 + col - row] = 0;
+
         }
       }
     }
 
   public:
     vector < vector < string >> solveNQueens(int n) {
+      
       vector < vector < string >> ans;
       vector < string > board(n);
       string s(n, '.');
@@ -428,17 +509,24 @@ void reverseStack(stack<int> &stack) {
 3. RAT IN A MAZE
 
 
- void solve(int i, int j, vector < vector < int >> & a, int n, vector < string > & ans, string move,
-    vector < vector < int >> & vis, int di[], int dj[]) {
+ void solve(int i, int j, vector < vector < int >> & a, int n, vector < string > & ans, 
+    string move, vector < vector < int >> & vis, int di[], int dj[]) 
+ {
+    // base case
     if (i == n - 1 && j == n - 1) {
       ans.push_back(move);
       return;
     }
+    
     string dir = "DLRU";
     for (int ind = 0; ind < 4; ind++) {
       int nexti = i + di[ind];
       int nextj = j + dj[ind];
-      if (nexti >= 0 && nextj >= 0 && nexti < n && nextj < n && !vis[nexti][nextj] && a[nexti][nextj] == 1) {
+
+      // cell validity , not visited,  is reacheable a[i][j] == 1
+      if (nexti >= 0 && nextj >= 0 && nexti < n && nextj < n && 
+        !vis[nexti][nextj] && a[nexti][nextj] == 1) 
+      {
         vis[i][j] = 1;
         solve(nexti, nextj, a, n, ans, move + dir[ind], vis, di, dj);
         vis[i][j] = 0;
@@ -457,3 +545,112 @@ void reverseStack(stack<int> &stack) {
       return ans;
     }
  
+
+
+ 4. M- coloring problems
+
+ Problem Statement: Given an undirected graph and a number m, determine if the graph can be
+  colored with at most m colors such that no two adjacent vertices of the graph are colored 
+  with the same color.
+
+ Solution 1: Backtracking
+
+Approach:
+
+Basically starting from vertex 0 color one by one the different vertices. 
+
+Base condition:
+
+If I have colored all the N nodes return true.
+
+Recursion:
+
+Trying every color from 1 to m with the help of a for a loop.
+
+Is safe function returns true if it is possible to color it with that color i.e none of the adjacent nodes have the same color.
+
+In case this is an algorithm and follows a certain intuition, please mention it. 
+
+Color it with color i then call the recursive function for the next node if it returns true we will return true.
+
+And If it is false then take off the color.
+
+Now if we have tried out every color from 1 to m and it was not possible to color it with any of the m colors then return false.
+
+
+
+bool isSafe(int node, int color[], bool graph[101][101], int n, int col) {
+  for (int k = 0; k < n; k++) {
+    if (k != node && graph[k][node] == 1 && color[k] == col) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool solve(int node, int color[], int m, int N, bool graph[101][101]) {
+  if (node == N) {
+    return true;
+  }
+
+  for (int i = 1; i <= m; i++) {
+    if (isSafe(node, color, graph, N, i)) {
+      color[node] = i;
+      if (solve(node + 1, color, m, N, graph)) return true;
+      color[node] = 0;
+    }
+
+  }
+  return false;
+}
+
+//Function to determine if graph can be coloured with at most M colours such
+//that no two adjacent vertices of graph are coloured with same colour.
+bool graphColoring(bool graph[101][101], int m, int N) {
+  int color[N] = {
+    0
+  };
+  if (solve(0, color, m, N, graph)) return true;
+  return false;
+}
+
+
+5. Sudoku Solver
+
+bool isValid(vector < vector < char >> & board, int row, int col, char c) {
+  for (int i = 0; i < 9; i++) {
+    if (board[i][col] == c)
+      return false;
+
+    if (board[row][i] == c)
+      return false;
+
+    if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c)
+      return false;
+  }
+  return true;
+}
+
+bool solveSudoku(vector < vector < char >> & board) {
+  for (int i = 0; i < board.size(); i++) {
+    for (int j = 0; j < board[0].size(); j++) 
+    {
+      if (board[i][j] == '.') 
+      {
+        for (char c = '1'; c <= '9'; c++) {
+          if (isValid(board, i, j, c)) {
+            board[i][j] = c;
+
+            if (solveSudoku(board))
+              return true;
+            else
+              board[i][j] = '.';
+          }
+        }
+
+        return false;
+      }
+    }
+  }
+  return true;
+}

@@ -26,7 +26,7 @@ using namespace std;
 void printSubs(vector<int> &arr, int n, int index, vector<int>&ds){
     if(index == n){
         if(ds.size() == 0){
-            cout<<"{}"<<endl;
+            cout<<"{}";
         }
         else
             for(auto it: ds) cout<<it<<" ";
@@ -34,14 +34,16 @@ void printSubs(vector<int> &arr, int n, int index, vector<int>&ds){
         cout<<endl;
         return;
     }
+    // not pick
+    printSubs(arr, n, index+1, ds);
+    
     // pick
     ds.push_back(arr[index]);
     printSubs(arr, n, index+1, ds);
     ds.pop_back();
 
-    printSubs(arr, n, index+1, ds);
     return;
-    // not pick
+
 }
 void solveNkb()
 {

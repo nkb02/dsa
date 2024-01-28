@@ -77,7 +77,7 @@ void solveNkb()
 	int maxN = 1000000;  // 10^6
 	rep(i,1,maxN) isPrime[i] = 1; // MARKED AS PRIME
 	
-	isPrime[0] = isPrime[1] = 0;  // 2 & 1 ARE COMPOSITE SO MARKED AS 0 -> COMPOSITE
+	isPrime[0] = isPrime[1] = 0;  // 0 & 1 ARE COMPOSITE SO MARKED AS 0 -> COMPOSITE
 		
 		for(int i = 2 ; i * i <= maxN ; i++)
 		{

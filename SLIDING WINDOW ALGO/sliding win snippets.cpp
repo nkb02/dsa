@@ -215,7 +215,7 @@
 	 }
 
 
-7. max substring with k unique character
+7. Longest substring with k unique character
 
 	int longestKSubstr(string s, int k) {
 	    int start, end;
